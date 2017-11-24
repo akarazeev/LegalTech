@@ -10,9 +10,9 @@ def index():
     if request.form:
         query = request.form.get('query')
         entries = process_query(query, df)
-        return render_template('search.html', query=query, entries=entries)
+        return render_template('index_new.html', query=query, entries=entries)
 
-    return render_template('search.html')
+    return render_template('index_new.html')
 
 
 if __name__ == '__main__':
