@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>BashSearch</title>
+    <style>
+        .pos {vertical-align: sub; color: blue; font-size: 70%;}
+        .result {font-size: 24px;}
+        .notbold {font-weight: normal;}​
+    </style>
+</head>
+<body>
+    <form method='post'>
+        <center>
+            <h1>Welcome to BashSearch engine 🌚</h1>
+            <table>
+                <tr>
+                    <td><textarea rows="1" cols="20" name="query" style="resize: none; font-size: 18px;">{{ query }}</textarea></td>
+                    <td><input type="submit" value="Search" style="width: 7em;  height: 3em; background: #67d5f7"></td>
+                </tr>
+            </table>
+            <table>
+                {% if entries %}
+                    <table>
+                        {% for score, title, url, content in entries %}
+                        <tr>
+                            <td>
+                                <h4><a href="{{ url }}">{{ title }}</a><span class='notbold'> - [{{ score }}]</span></h4>
+                                {{ content }}
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </table>
+                {% endif %}
+            </table>
+        </center>
+    </form>
+</body>
+</html>
