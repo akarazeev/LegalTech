@@ -1,3 +1,3 @@
-## qqmbr - Legal Hack
+## Legal Tech - "qqmbr" team
 
-### Solution helps to track project's progress
+### Solution helps to track court project's progress
