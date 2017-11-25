@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ru">
+    <head>
+   <link rel="stylesheet" href="bootstrap-grid.css">
+        <meta charset="UTF-8">
+        <title>LegalEngine</title>
+        <style>
+            .pos {vertical-align: sub; color: blue; font-size: 70%;}
+            .result {font-size: 24px;}
+            .notbold {font-weight: normal;}​
+        </style>
+    </head>
+
+    <body>
+        <div class="container">
+        <div class="row">
+            <div class="col-md-3" style="border-right: 1px solid #000; height: 100vh; position: sticky;">
+            <h1>Welcome to LegalEngine</h1>
+            <textarea rows="1" cols="20" name="query" style="resize: none; font-size: 18px;">{{ query }}</textarea>
+            <input type="submit" value="Search" style="width: 7em;  height: 3em; background: #67d5f7">
+            </div>
+            <div class="col-md-9" style="padding-top: 50px;">
+                 {% if entries %}
+                 {% for score, title, url, content in entries %}
+                  <h4><a href="{{ url }}">{{ title }}</a><span class='notbold'> - [{{ score }}]</span></h4>
+                                            {{ content }}
+                {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        </div>
+    </body>
