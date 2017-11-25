@@ -15,9 +15,10 @@ def index():
         query = request.form.get('query')
         print(request.form.get('select'))
         entries = process_query(query, df)
-        return render_template('index_new.html', authors=authors, query=query, entries=entries)
+        print(len(entries))
+        return render_template('new_index.html', authors=authors, query=query, entries=entries)
 
-    return render_template('index_new.html', authors=authors)
+    return render_template('new_index.html', authors=authors)
 
 
 if __name__ == '__main__':
