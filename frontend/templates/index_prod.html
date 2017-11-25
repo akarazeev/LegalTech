@@ -20,11 +20,12 @@
         <header class="site-header">
             <div class="container">
                 <div class="row">
-                    <div class="col-md-1"><img class="logo" src="{{url_for('static', filename='img/logo.png')}}" alt="logo"></div>
+                    <!--<div class="col-md-1"><img class="logo" src="{{url_for('static', filename='img/logo.png')}}" alt="logo"></div>-->
+                    <div class="col-md-1"><img class="logo" src="{{url_for('static', filename='img/avatar.jpg')}}" alt="logo"></div>
                     <div class="col-md-2"><h1 class="name">LegalEngine</h1></div>
-                    <div class="col-md-1"><div class="user"><img src="{{url_for('static', filename='img/0_bb116_baa51c54_L.png')}}" alt="man"></div></div>
-                    <div class="col-md-2"><div class="name_user"><a href="#">Alex Manuylov</a></div></div>
-                    <div class="col-md-2"><a class="sing" href="#">Singout</a></div>
+                    <!--<div class="col-md-1"><div class="user"><img src="{{url_for('static', filename='img/avatar.jpg')}}" alt="man"></div></div>-->
+                    <div class="col-md-2"><div class="name_user"><a href="#">{{ username }}</a></div></div>
+                    <div class="col-md-2"><a class="sing" href="#">Sign Out</a></div>
                     <!--<div class="col-md-3"><div class="sing_in"><a href="#">Sing in</a></div></div>-->
                 </div>
             </div>
@@ -37,7 +38,7 @@
                 <ul>
                     <li><a class="link" href="#" style="border: 1px solid">Home</a></li>
                     <li><a class="link" href="#" style="border: 1px solid">Search</a></li>
-                    <li><a class="link" href="#" style="border: 1px solid">Confidentiality</a></li>
+                    <li><a class="link" href="/form" style="border: 1px solid">Send a request</a></li>
                     <li><a class="link" href="#" style="border: 1px solid">Profile</a></li>
                 </ul>
             </div>
@@ -63,44 +64,50 @@
                         <li><a class="link" href="#" style="border: 1px solid;">For print</a></li>
                     </ul>
                 </div>
-                <div class="col-md-8">
-                    <div class="rec" style="margin-top: 50px" ><p class="p_rec" style="font-size: 21px; color: #4C4C4C; letter-spacing: 1.5px;">Recently viewed:</p></div>
-                    <nav id="navbar">
-                        <ul id="main-menu">
-                            <li><a href="#" target="_blank"><i class="fa fa-home"></i>Case 1</a></li>
-                            <li><a href="#" target="_blank"><i class="fa fa-list-alt"></i>Case 2</a></li>
-                            <li id="dropdown-item"><a href="#"><i class="fa fa-coffee"></i>Case 4</a></li>
-                            <li><a href="#" target="_blank"><i class="fa fa-quote-left"></i>Case 5</a></li>
-                            <li><a href="#" target="_blank"><i class="fa fa-user"></i>Case 3</a></li>
-                            <li><a href="#" target="_blank"><i class="fa fa-user"></i>Case 9</a></li>
-                            <li><a href="#" target="_blank"><i class="fa fa-user"></i>Case 8</a></li>
-                        </ul><!-- main-menu -->
-                    </nav><!-- navbar -->
-                </div>
+                <!--<div class="col-md-8">-->
+                    <!--<div class="rec" style="margin-top: 50px" ><p class="p_rec" style="font-size: 21px; color: #4C4C4C; letter-spacing: 1.5px;">Recently viewed:</p></div>-->
+                    <!--<nav id="navbar">-->
+                        <!--<ul id="main-menu">-->
+                            <!--<li><a href="#" target="_blank"><i class="fa fa-home"></i>Case 1</a></li>-->
+                            <!--<li><a href="#" target="_blank"><i class="fa fa-list-alt"></i>Case 2</a></li>-->
+                            <!--<li id="dropdown-item"><a href="#"><i class="fa fa-coffee"></i>Case 4</a></li>-->
+                            <!--<li><a href="#" target="_blank"><i class="fa fa-quote-left"></i>Case 5</a></li>-->
+                            <!--<li><a href="#" target="_blank"><i class="fa fa-user"></i>Case 3</a></li>-->
+                            <!--<li><a href="#" target="_blank"><i class="fa fa-user"></i>Case 9</a></li>-->
+                            <!--<li><a href="#" target="_blank"><i class="fa fa-user"></i>Case 8</a></li>-->
+                        <!--</ul>&lt;!&ndash; main-menu &ndash;&gt;-->
+                    <!--</nav>&lt;!&ndash; navbar &ndash;&gt;-->
+                <!--</div>-->
             </div>
 
             <div class="col-md-1"></div>
             <div class="col-md-8">
                 <div class="user_info">
+                    {% if info %}
                     <div class="col-md-3">
                         <div class="assigment">Assigment name</div>
-                        <div class="data">Osakekauppariita</div>
+                        <div class="data">{{ info['Assigment name'] }}</div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="assigment">Assigment type</div>
-                        <div class="data">Kilpailuoikeaus</div>
+                        <div class="data" >{{ info['Assignment Type'] }}</div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="assigment">Author</div>
-                        <div class="data">Helen Path</div>
+                        <div class="data">{{ info['Author'] }}</div>
                     </div>
 
                     <div class="col-md-3">
                         <div class="assigment">Category</div>
-                        <div class="data">Low</div>
+                        <div class="data">{{ info['Category'] }}</div>
                     </div>
+                    {% else %}
+                    <div class="col-md-3">
+                        <div>Nothing is found.</div>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
 
@@ -108,7 +115,9 @@
                 {% if transactions %}
                     {% for transaction in transactions %}
                     <div class="border_">
-                        <h4>{{ loop.index }}. {{ transaction.Transaction }}<span class='notbold'> - Date: {{ transaction['Entry Date'] }}</span></h4>
+                        <h4>{{ loop.index }}. {{ transaction.Transaction }}<span class='notbold'></span></h4>
+                        Date: {{ transaction['Entry Date'] }}
+                        <br>
                         Paid: {{ transaction.Paid }}
                     </div>
                     {% endfor %}

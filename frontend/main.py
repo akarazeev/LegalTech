@@ -31,24 +31,28 @@ def login_form():
 
 @app.route('/', methods=['get', 'post'])
 def index():
-
+    username = 'Anton Karazeev'
     project_id = '20120036'
-    info = jsdata[project_id]['Info']
 
-    transactions = jsdata[project_id]['Transactions']
-    transactions = list(transactions.values())
+    if request.form:
+        project_id = request.form.get('query')
 
-    # Sort the transactions by date
-    transactions = sorted(transactions, key=lambda x: datetime.datetime.strptime(x['Entry Date'], '%Y-%m-%d'))
+    if project_id in jsdata:
+        info = jsdata[project_id]['Info']
 
-    total_for_transactions = '{:.2f}'.format(sum([trans['Total'] for trans in transactions]))
+        transactions = jsdata[project_id]['Transactions']
+        transactions = list(transactions.values())
 
-    return render_template('index_prod.html', authors=authors, cases=cases,
-                           transactions=transactions, total_for_transactions=total_for_transactions,
-                           info=info)
+        # Sort the transactions by date
+        transactions = sorted(transactions, key=lambda x: datetime.datetime.strptime(x['Entry Date'], '%Y-%m-%d'))
 
-    # return render_template('index_prod.html', authors=authors)
-    # return render_template('index_prod.html')
+        total_for_transactions = '{:.2f}'.format(sum([trans['Total'] for trans in transactions]))
+
+        return render_template('index_prod.html', query=project_id, transactions=transactions,
+                               total_for_transactions=total_for_transactions,
+                               info=info, username=username)
+    else:
+        return render_template('index_prod.html', query=project_id, not_found=True, username=username)
 
 if __name__ == '__main__':
     app.run(debug=True)
