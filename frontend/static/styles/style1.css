@@ -1,0 +1,115 @@
+/* Google Fonts */
+@import url(https://fonts.googleapis.com/css?family=Lato:300,400);
+
+/* Main Menu */
+
+ul#main-menu {
+	font-family: 'Lato', sans-serif;
+	font-family: 13px;
+	font-weight: 300;
+	list-style: none;
+	margin-bottom: 15px;
+	cursor: pointer;
+}
+
+ul#main-menu > ul {
+	list-style: none;
+	opacity: 0;
+}
+
+ul#main-menu li {
+	background: #fff;
+	padding: 15px 50px 15px 10px;
+	border: 1px solid #e2e2e2;
+	width: 180px;
+}
+
+ul#main-menu li:hover {
+	border-color: #67aef0;
+	color: #67aef0;
+
+	
+
+}
+
+ul#main-menu li:first-child {
+	border-radius: 0 5px 0 0;
+}
+
+ul#main-menu li a {
+	color: black;
+	text-decoration: none;
+}
+
+ul#main-menu i {
+	padding-right: 15px;
+	padding-left: 5px;
+}
+
+/* Submenu */
+
+#submenu {
+	color: #fff;
+	position: absolute;
+	width: 120px;
+	left: 202px;
+	margin-top: -50px;
+}
+
+ul#submenu > li {
+	padding: 10px;
+}
+
+ul#main-menu ul#submenu.show-submenu {
+	opacity: 1;
+	cursor: pointer;
+	-webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+	transition: all 0.5s ease;
+}
+
+ul#main-menu ul#submenu.hide-submenu {
+	cursor: pointer;
+	display: none;
+}
+
+.user_info{
+	border:1px solid;
+	height: 75px;
+	background-color: #fff;
+	border-color: #e2e2e2;
+	
+}
+.assigment {
+	/* Assigment name: */
+	font-family: HelveticaNeue;
+	font-size: 14px;
+	color: #C8C8C8;
+	letter-spacing: 0;
+	padding-top: 8px
+}
+.data {
+	/* Osakekauppariita: */
+	padding-top: 15px;
+	font-family: HelveticaNeue;
+	font-size: 16px;
+	color: #000000;
+	letter-spacing: 0;
+}
+
+.body {
+	background-color: #f9f9fb;
+}
+
+.sing {
+	position: absolute;
+	margin-left: 580px;
+  margin-top: 20px;
+  /* Sign Out: */
+	font-family: HelveticaNeue-Medium;
+	font-size: 14px;
+	color: #4A90E2;
+	letter-spacing: 0;
+}
+
