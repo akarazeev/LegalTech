@@ -17,13 +17,13 @@
 <body class="body">
     <form method='post'>
 
-        <header class="site-header">
+        <header class="site-header" style="background-color: #262626;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-1"><img class="logo" src="{{url_for('static', filename='img/avatar.jpg')}}" alt="logo"></div>
                     <div class="col-md-2"><h1 class="name">LegalEngine</h1></div>
-                    <div class="col-md-2"><div class="name_user"><a href="#">{{ username }}</a></div></div>
-                    <div class="col-md-2"><a class="sing" href="#">Sign Out</a></div>
+                    <div class="col-md-2"><div class="name_user"><a href="#" style="white-space: nowrap; margin-left: 563px; margin-top: 17px;">{{ username }}</a></div></div>
+                    <div class="col-md-2"><a class="sing" href="/login" style="white-space: nowrap; margin-left: 534px; margin-top: 17px;">Sign Out</a></div>
                 </div>
             </div>
         </header>

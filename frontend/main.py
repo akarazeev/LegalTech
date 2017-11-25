@@ -9,6 +9,8 @@ jsdata = get_jsdata()
 authors = sorted(list(set(data['Author / Tekijä'].values)))
 cases = list(jsdata.keys())
 
+username = 'Anton Karazeev'
+
 
 @app.route('/login', methods=['get', 'post'])
 def login_form():
@@ -17,7 +19,6 @@ def login_form():
 
 @app.route('/', methods=['get', 'post'])
 def index():
-    username = 'Anton Karazeev'
     project_id = '20120036'
 
     if request.form:
@@ -48,8 +49,8 @@ def send_request():
         subject = request.form.get('subject')
         body = request.form.get('body')
         print(subject, body)
-        return render_template('request_form.html', sent=True)
-    return render_template('request_form.html')
+        return render_template('request_form.html', sent=True, username=username)
+    return render_template('request_form.html', username=username)
 
 
 if __name__ == '__main__':
