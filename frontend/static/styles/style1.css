@@ -113,3 +113,37 @@ ul#main-menu ul#submenu.hide-submenu {
 	letter-spacing: 0;
 }
 
+.cover{
+   width:700px; margin:auto; padding-left:60px; padding-top: 80px;
+}
+
+.contact {
+  font-size: 30px;
+}
+
+.sub {
+  width: 350px;
+  height: 50px;
+}
+
+.your {
+  font-size: 15px;
+}
+
+
+.area {
+  width: 500px;
+  height: 100px;
+}
+.inp {
+  color: #337ab7;
+  border: 1px solid;
+  border-color: #67aef0;
+  margin-top: 15px;
+  height: 30px;
+  width: 200px;
+}
+.inp:hover {
+  background-color: #67aef0;
+  color: #fff;
+}

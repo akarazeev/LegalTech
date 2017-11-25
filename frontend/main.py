@@ -12,21 +12,7 @@ cases = list(jsdata.keys())
 
 @app.route('/login', methods=['get', 'post'])
 def login_form():
-    # return render_template('index_prod.html')
     return render_template('login_form.html')
-
-    ########################
-    # if request.form:
-    #     query = request.form.get('query')
-    #     print(request.form.get('select'))
-    #     entries = process_query(query, df)
-    #     print(len(entries))
-    #     return render_template('index.html', authors=authors, cases=cases, query=query, entries=entries)
-    ##############################
-
-    # return render_template('index.html', authors=authors, cases=cases,
-    #                        transactions=transactions, total_for_transactions=total_for_transactions,
-    #                        info=info)
 
 
 @app.route('/', methods=['get', 'post'])
@@ -53,6 +39,18 @@ def index():
                                info=info, username=username)
     else:
         return render_template('index_prod.html', query=project_id, not_found=True, username=username)
+
+
+# request_form.html
+@app.route('/form', methods=['get', 'post'])
+def send_request():
+    if request.form:
+        subject = request.form.get('subject')
+        body = request.form.get('body')
+        print(subject, body)
+        return render_template('request_form.html', sent=True)
+    return render_template('request_form.html')
+
 
 if __name__ == '__main__':
     app.run(debug=True)
