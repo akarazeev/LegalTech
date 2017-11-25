@@ -14,8 +14,8 @@
       <file leaf-file-name="index_prod.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/templates/index_prod.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="331">
-              <caret line="107" column="33" lean-forward="true" selection-start-line="107" selection-start-column="33" selection-end-line="107" selection-end-column="33" />
+            <state relative-caret-position="240">
+              <caret line="101" column="51" lean-forward="true" selection-start-line="101" selection-start-column="51" selection-end-line="101" selection-end-column="51" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="n#style#0;n#a#0;n#li#2;n#ul#0;n#div#1;n#div#0;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -26,10 +26,20 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="429">
+              <caret line="65" column="72" lean-forward="false" selection-start-line="65" selection-start-column="44" selection-end-line="65" selection-end-column="72" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="login_form.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/login_form.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="482">
+            <state relative-caret-position="361">
               <caret line="81" column="62" lean-forward="false" selection-start-line="81" selection-start-column="62" selection-end-line="81" selection-end-column="62" />
               <folding>
                 <element signature="n#style#0;n#a#0;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -41,8 +51,8 @@
       <file leaf-file-name="main.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="48" column="41" lean-forward="false" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="41" />
+            <state relative-caret-position="402">
+              <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
               <folding>
                 <element signature="e#0#49#0" expanded="true" />
               </folding>
@@ -205,8 +215,8 @@
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="48" column="41" lean-forward="false" selection-start-line="48" selection-start-column="41" selection-end-line="48" selection-end-column="41" />
+        <state relative-caret-position="402">
+          <caret line="48" column="0" lean-forward="true" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="0" />
           <folding>
             <element signature="e#0#49#0" expanded="true" />
           </folding>
@@ -215,7 +225,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/login_form.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="482">
+        <state relative-caret-position="361">
           <caret line="81" column="62" lean-forward="false" selection-start-line="81" selection-start-column="62" selection-end-line="81" selection-end-column="62" />
           <folding>
             <element signature="n#style#0;n#a#0;n#form#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
@@ -223,10 +233,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="429">
+          <caret line="65" column="72" lean-forward="false" selection-start-line="65" selection-start-column="44" selection-end-line="65" selection-end-column="72" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/templates/index_prod.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="331">
-          <caret line="107" column="33" lean-forward="true" selection-start-line="107" selection-start-column="33" selection-end-line="107" selection-end-column="33" />
+        <state relative-caret-position="240">
+          <caret line="101" column="51" lean-forward="true" selection-start-line="101" selection-start-column="51" selection-end-line="101" selection-end-column="51" />
           <folding>
             <element signature="n#style#0;n#a#0;n#li#0;n#ul#0;n#div#1;n#div#0;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="n#style#0;n#a#0;n#li#2;n#ul#0;n#div#1;n#div#0;n#div#0;n#form#0;n#body#0;n#html#0;n#!!top" expanded="true" />

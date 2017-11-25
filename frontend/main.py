@@ -32,21 +32,22 @@ def login_form():
 @app.route('/', methods=['get', 'post'])
 def index():
 
-    # project_id = '20120036'
-    # info = jsdata[project_id]['Info']
-    #
-    # transactions = jsdata[project_id]['Transactions']
-    # transactions = list(transactions.values())
-    #
-    # # Sort the transactions by date
-    # transactions = sorted(transactions, key=lambda x: datetime.datetime.strptime(x['Entry Date'], '%Y-%m-%d'))
-    #
-    # total_for_transactions = '{:.2f}'.format(sum([trans['Total'] for trans in transactions]))
-    #
-    # return render_template('index_prod.html', authors=authors, cases=cases,
-    #                        transactions=transactions, total_for_transactions=total_for_transactions,
-    #                        info=info)
-    return render_template('index_prod.html', authors=authors)
+    project_id = '20120036'
+    info = jsdata[project_id]['Info']
+
+    transactions = jsdata[project_id]['Transactions']
+    transactions = list(transactions.values())
+
+    # Sort the transactions by date
+    transactions = sorted(transactions, key=lambda x: datetime.datetime.strptime(x['Entry Date'], '%Y-%m-%d'))
+
+    total_for_transactions = '{:.2f}'.format(sum([trans['Total'] for trans in transactions]))
+
+    return render_template('index_prod.html', authors=authors, cases=cases,
+                           transactions=transactions, total_for_transactions=total_for_transactions,
+                           info=info)
+
+    # return render_template('index_prod.html', authors=authors)
     # return render_template('index_prod.html')
 
 if __name__ == '__main__':

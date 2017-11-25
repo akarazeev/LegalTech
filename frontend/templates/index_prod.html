@@ -104,13 +104,18 @@
                 </div>
             </div>
 
-            {% if entries %}
-            <div class="border_">
-                {% for score, title, url, content in entries %}
-                <h4><a href="{{ url }}">{{ title }}</a><span class='notbold'> - [{{ score }}]</span></h4>
-                                        {{ content }}
-            {% endfor %}
+            <div class="col-md-8">
+                {% if transactions %}
+                    {% for transaction in transactions %}
+                    <div class="border_">
+                        <h4>{{ loop.index }}. {{ transaction.Transaction }}<span class='notbold'> - Date: {{ transaction['Entry Date'] }}</span></h4>
+                        Paid: {{ transaction.Paid }}
+                    </div>
+                    {% endfor %}
+                {% endif %}
             </div>
-            {% endif %}
+
+        </div>
+    </div>
     </form>
 </body>
