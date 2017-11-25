@@ -1,0 +1,180 @@
+body {
+	background-color: #dcdcdc;
+}
+
+.border_ {
+	 padding: 33px;
+	 border: 1px double;
+	 border-color: grey;
+	 margin-top: 15px;
+	 background-color: #fff;
+}
+.border_:hover {
+	border-color: black;
+	transition: all 0.2s ease-in-out 0.2s
+
+}
+
+.logo {
+	width: 50px;
+	height: 50px;
+	text-align: center;
+	margin-top: 14px;
+  margin-left: 29px;
+}
+.site-header{
+	background-color: #252a3f;
+	
+}
+.name	{
+	color: #fff;
+}
+
+.user{
+	width: 50px;
+	height: 50px;
+	background: grey;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	border-radius: 50px;
+	margin-top: 15px;
+  margin-left:  700px;
+}
+.user img{
+	width: 50px;
+	height: 46px;
+}
+.name_user{
+	color: #989899;
+	font-size: 15px;
+	margin-top: 26px;
+  margin-left: 666px;
+
+}
+
+ul {
+  list-style: none; /*убираем маркеры списка*/
+  margin: 0; /*убираем отступы*/
+  padding-left: 0; /*убираем отступы*/
+  margin-top:25px; /*делаем отступ сверху*/
+}
+a {
+  text-decoration: none; /*убираем подчеркивание текста ссылок*/
+  background:#30A8E6; /*добавляем фон к пункту меню*/
+  color:#fff; /*меняем цвет ссылок*/
+  padding:10px; /*добавляем отступ*/
+  font-family: arial; /*меняем шрифт*/
+  border-radius:4px; /*добавляем скругление*/
+  -moz-transition: all 0.3s 0.01s ease; /*делаем плавный переход*/
+  -o-transition: all 0.3s 0.01s ease;
+  -webkit-transition: all 0.3s 0.01s ease;
+}
+.link:hover {
+  background-color:#1C85BB;
+  color: #fff/*добавляем эффект при наведении*/
+}
+li {
+  float:left; /*Размещаем список горизонтально для реализации меню*/
+  margin-right:5px; /*Добавляем отступ у пунктов меню*/
+  
+}
+
+.select{
+	/* Select View: */
+font-family: HelveticaNeue;
+font-size: 18px;
+color: #4C4C4C;
+letter-spacing: 1.29px;
+margin-top: 85px;
+}
+
+
+.standart {
+	ul {
+  list-style: none; /*убираем маркеры списка*/
+  margin: 0; /*убираем отступы*/
+  padding-left: 0; /*убираем отступы*/
+  margin-top:25px; /*делаем отступ сверху*/
+}
+a {
+  text-decoration: none; /*убираем подчеркивание текста ссылок*/
+  background:#30A8E6; /*добавляем фон к пункту меню*/
+  color:#fff; /*меняем цвет ссылок*/
+  padding:10px; /*добавляем отступ*/
+  font-family: arial; /*меняем шрифт*/
+  border-radius:4px; /*добавляем скругление*/
+  -moz-transition: all 0.3s 0.01s ease; /*делаем плавный переход*/
+  -o-transition: all 0.3s 0.01s ease;
+  -webkit-transition: all 0.3s 0.01s ease;
+}
+.link:hover {
+  background-color:#1C85BB;
+  color: #fff/*добавляем эффект при наведении*/
+}
+li {
+  float:left; /*Размещаем список горизонтально для реализации меню*/
+  margin-right:5px; /*Добавляем отступ у пунктов меню*/
+  border-right: 1px solid black;
+
+}
+.rec{
+	margin-top: 100px;
+	color: red;
+}
+.p_rec{
+	/* Recently viewed: */
+	font-family: HelveticaNeue;
+	font-size: 21px;
+	color: #4C4C4C;
+	letter-spacing: 1.5px;
+}
+.case_id {
+	color: red
+}
+
+
+
+ul#main-menu {
+	font-family: 'Lato', sans-serif;
+	font-family: 13px;
+	font-weight: 300;
+	list-style: none;
+	position: absolute;
+	cursor: pointer;
+}
+
+ul#main-menu > ul {
+	list-style: none;
+	opacity: 0;
+}
+
+ul#main-menu li {
+	background: #006bb6;
+	padding: 15px 50px 15px 10px;
+	border-bottom: 1px solid #fff;
+}
+
+ul#main-menu li:hover {
+	background: #9eccb3;
+}
+
+ul#main-menu li:first-child {
+	border-radius: 0 5px 0 0;
+}
+
+ul#main-menu li a {
+	color: #fff;
+	text-decoration: none;
+}
+
+ul#main-menu i {
+	padding-right: 15px;
+	padding-left: 5px;
+}
+/* Case 1: */
+.info_user {
+	width: 100px;
+	height: 100px;
+	background-color: red;
+}
+
