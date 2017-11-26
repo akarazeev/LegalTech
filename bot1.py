@@ -5,7 +5,7 @@ import json
 import os
 import numpy as np
 import operator
-
+import time
 
 
 # Enable logging
@@ -22,7 +22,8 @@ actions = {
     'CHOOSE': '5',
     'CHANGE': '6',
     'LAWER': '7',
-    'ASS': '8'
+    'ASS': '8',
+    'TIME': '9'
 }
 
 iterator = 0
@@ -54,6 +55,7 @@ def get_token():
 keyboard1 = [[InlineKeyboardButton("Choose transaction",  callback_data=actions['CHOOSE'])],
              [InlineKeyboardButton("Change assignment", callback_data=actions['CHANGE'])],
              [InlineKeyboardButton("Previous", callback_data=actions['PREV']),
+              InlineKeyboardButton("Hours",  callback_data=actions['TIME']),
               InlineKeyboardButton("Next", callback_data=actions['NEXT'])]]
 
 keyboard0 = [[InlineKeyboardButton("Lawer stats",  callback_data=actions['LAWER']),
@@ -110,6 +112,7 @@ def button(bot, update):
             d = json.load(f)
         responsible_name = d[case]['Info']['Responsible']
         lawer_assignment_info = get_lawer_assignment_info(responsible_name)  
+        time.sleep(0.5)
         with open('plot11.png', 'rb') as f:
             query.message.reply_photo(photo=f)
         reply_markup = InlineKeyboardMarkup(keyboard0)
@@ -121,7 +124,26 @@ def button(bot, update):
             d = json.load(f)
         #responsible_name = d[case]['Info']['Responsible']
         lawer_assignment_info = plot_spents(case, '2018-01-01')  
+        time.sleep(0.5)
         with open('piechart_paid.png', 'rb') as f:
+            query.message.reply_photo(photo=f)
+        reply_markup = InlineKeyboardMarkup(keyboard0)
+        query.message.reply_text('Choose something', reply_markup=reply_markup)
+        
+    elif query.data == actions['TIME']:
+        from legal_tech_utils import plot_hours_distribution
+        with open('json_4.json', 'r') as f:
+            d = json.load(f)
+            
+        for name, count in d[case]['Transactions'].items():
+            if count['Transaction Number'] == to_iterate-iterator: 
+                lt_name = name
+                lt = count
+                ltype = count['Transaction Type English']
+        #responsible_name = d[case]['Info']['Responsible']
+        lawer_assignment_info = plot_hours_distribution(ltype) 
+        time.sleep(0.5)
+        with open('distplot_hours.png', 'rb') as f:
             query.message.reply_photo(photo=f)
         reply_markup = InlineKeyboardMarkup(keyboard0)
         query.message.reply_text('Choose something', reply_markup=reply_markup)
