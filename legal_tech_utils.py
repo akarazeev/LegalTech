@@ -115,18 +115,29 @@ def get_timeline(assignment_id, current_date, name = 'timeline'):
         pass
     #     # return tmp.loc[0, 'status_date'], tmp.loc[0, 'status']
 
+# assignment = '20080006'
+# current_date = '2009-01-01'
+#
+assignment = '20080006'
+current_date = '2009-01-20'
+
 def gen_status_bar(assignment, current_date, filepath = 'progress_bar.png'):
     is_ended = False
     mask_assignment = (df['Assignment'] == assignment)
     #     print(current_date)
     #     is_ended, n_days = get_history_len('1', current_date)
-    #     try:
-    mask = mask_assignment & (df.loc[mask_assignment, 'Entry Date'] < current_date)
-    max_index = df.index[mask].max()
+    # try:
+    date_col = 'Entry Date'
+    mask = mask_assignment & (df.loc[mask_assignment, date_col] <= current_date)
+    # print(df.loc[mask, date_col], df.loc[mask, date_col].isnull().sum())
+    mask_index = df.loc[mask, date_col] == df.loc[mask, date_col].max()
+    max_index = df.loc[pd.Index(mask_index.values),date_col].index[-1]
+    # df_tmp = df.loc[mask, date_col]
+    # max_index = df.index[mask].max() # It is old version
     transaction = df.loc[max_index, 'Transaction Type Englis']
-    min_date = df.loc[mask, 'Entry Date'].min()
+    min_date = df.loc[mask, date_col].min()
     min_date = datetime.strptime(min_date, DATE_FORMAT)
-    max_date = df.loc[mask_assignment, 'Entry Date'].max()
+    max_date = df.loc[mask_assignment, date_col].max()
     max_date = datetime.strptime(max_date, DATE_FORMAT)
     current_date = datetime.strptime(current_date, DATE_FORMAT)
     is_ended = current_date > max_date
@@ -135,9 +146,9 @@ def gen_status_bar(assignment, current_date, filepath = 'progress_bar.png'):
     if is_ended:
         percent = 100
     else:
-        percent = int(100 * average_len_dict[transaction] / (average_len_dict[transaction] + n_days))
+        percent = int(100 * float(n_days) / (average_len_dict[transaction] + n_days))
     # except:
-    #         percent = 0
+    #     percent = 0
 
     plt.figure(figsize=(10, 1))
     plt.barh(0.05, 100, height=0.1, color='#95bef4')
@@ -226,7 +237,6 @@ def get_catboost_predict(assignment_id, current_date):
         prediction = 1000
     return prediction
 
-
 def plot_spents(assignment_id, current_date, filepath = '/Users/smerdov/Downloads/piechart_paid.png'):
     mask = (df['Assignment'] == assignment_id) & (df['Entry Date'] <= current_date)
     df_aggregated = df.loc[mask, ['Transaction Type','Paid']].groupby(['Transaction Type']).agg(
@@ -256,7 +266,7 @@ def plot_spents(assignment_id, current_date, filepath = '/Users/smerdov/Download
             image_filename = 'piechart_paid'
         )
 
-transaction_type = 'Writing a complaint'
+# transaction_type = 'Writing a complaint'
 def plot_hours_distribution(transaction_type, filepath = '/Users/smerdov/Downloads/distplot_hours.png'):
     mask = ((df['Transaction Type'] == transaction_type) | (df['Transaction Type Englis'] == transaction_type)) &\
            (df['Hours Worked'] < 50) & (df['Billable Hours'] < 50) & (df['Hours Worked'] > 0) & (df['Billable Hours'] > 0)
@@ -286,20 +296,21 @@ def plot_hours_distribution(transaction_type, filepath = '/Users/smerdov/Downloa
         # validate=False
     )
 
-plot_hours_distribution('Court appearance')
-
 
 if __name__ == '__main__':
 
+    # gen_status_bar('20080007', '2008-10-05')
+
+
     get_timeline('20120036', '2007-05-15')
-    gen_status_bar('12', '2008-10-23')
     responsible_name = 'Boris Keilaniemi'
     transaction_name = 'Rahoitusoikeus'
     lawer_assignment_info = get_lawer_assignment_info(responsible_name, transaction_name)
-
-    assignment_id = '20120036'
-    catboost_prediction = get_catboost_predict(assignment_id, '2017-01-01')
-
-    # catboost_prediction
-
-    plot_spents('12', '2017-01-01')
+    #
+    # assignment_id = '20120036'
+    # catboost_prediction = get_catboost_predict(assignment_id, '2017-01-01')
+    #
+    # # catboost_prediction
+    #
+    # plot_spents('12', '2017-01-01')
+    # plot_hours_distribution('Court appearance')
