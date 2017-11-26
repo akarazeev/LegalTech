@@ -13,8 +13,6 @@ import os
 import catboost as cb
 import subprocess
 
-# os.remove()
-
 cbr = cb.CatBoostRegressor()
 cbr.load_model('catboost_model')
 average_len_dict = json.load(open('average_len_dict'))
@@ -165,10 +163,12 @@ def gen_status_bar(assignment, current_date, filepath = 'progress_bar.png'):
     }
 
 # init_notebook_mode(connected=True)
-def get_lawer_assignment_info(responsible_name, assignment_name):
+def get_lawer_assignment_info(responsible_name, transaction_name, filepath = '/Users/smerdov/Downloads/plot_image.jpeg'):
+    if os.path.exists(filepath):
+        os.remove(filepath)
     mean_lawer_price = int(df_lawer_price.loc[responsible_name, 'Hour Price'])
-    mean_assignment_price = int(df_assignment_price.loc[assignment_name, 'Hour Price'])
-    mean_lawer_assignment_price = int(df_lawer_assignment_price.loc[(responsible_name, assignment_name), 'Hour Price'])
+    mean_assignment_price = int(df_assignment_price.loc[transaction_name, 'Hour Price'])
+    mean_lawer_assignment_price = int(df_lawer_assignment_price.loc[(responsible_name, transaction_name), 'Hour Price'])
 
     result = {
         'mean_lawer_price': mean_lawer_price,
@@ -182,6 +182,8 @@ def get_lawer_assignment_info(responsible_name, assignment_name):
 
     #     filename = f'/Users/smerdov/Junction2017/{responsible_name}.html'
     #     filename = '/Users/smerdov/Junction2017/Piechart.html'
+
+
     fig = plotly.offline.plot(
         {
             "data": [
@@ -221,13 +223,12 @@ def get_catboost_predict(assignment_id, current_date):
         prediction = 1000
     return prediction
 
-
 if __name__ == '__main__':
     get_timeline('1', '2008-08-30')
     gen_status_bar('12', '2008-10-23')
     responsible_name = 'Boris Keilaniemi'
-    assignment_name = 'Rahoitusoikeus'
-    lawer_assignment_info = get_lawer_assignment_info(responsible_name, assignment_name)
+    transaction_name = 'Rahoitusoikeus'
+    lawer_assignment_info = get_lawer_assignment_info(responsible_name, transaction_name)
 
     catboost_prediction = get_catboost_predict(assignment_id, '2017-01-01')
 
