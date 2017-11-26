@@ -54,7 +54,7 @@ def aggregator(rec):
         result = result + value + '; '
     return result[:-2]
 
-def get_timeline(assignment_id, current_date, name = 'timeline'):
+def get_timeline(assignment_id, current_date, name='timeline'):
     mask_1 = df['Assignment'] == assignment_id
     mask_2 = df['Entry Date'] <= current_date
     max_date = df.loc[mask_1, 'Entry Date'].max()
@@ -62,18 +62,12 @@ def get_timeline(assignment_id, current_date, name = 'timeline'):
     df_small = df.loc[mask, ['Transaction', 'status_date']]
 
     tmp = df_small.groupby(['status_date'], as_index=True).apply(aggregator).reset_index()
-    # tmp['status_date'] = tmp['status_date'].astype(str)
 
     tmp = tmp.rename(
         columns={
             0: 'status'
         }
     )
-
-    # mask = df['Assignment'] == assignment_id
-    # df_small = df.loc[mask, ['Transaction', 'status_date']]
-    #
-    # ([rec for rec in df_small.iterrows()][0][1]['status_date'])
 
     items = [
         {'time': rec[1]['status_date'], 'text': rec[1]['status']} for rec in tmp.iterrows()
@@ -92,25 +86,12 @@ def get_timeline(assignment_id, current_date, name = 'timeline'):
         print('Only one sample')
         return tmp.loc[0, 'status_date'], tmp.loc[0, 'status']
 
+    tl = TimelineTex(items, options=options)
 
-    #     return items
-
-    try:
-        tl = TimelineTex(items, options=options)
-        if folder is None:
-            tl.export(f'{name}.tex')
-            # tl.export(f'timeline_{assignment_id}.tex')
-            # else:
-            #     tl.export(f'{folder}/timeline_{assignment_id}.tex')
-            pdf_filename = f'{name}.pdf'
-            command = 'convert -verbose -density 500 "{}" -quality 100 "{}"'.format(pdf_filename,
-                                                                                    pdf_filename.replace('.pdf',
-                                                                                                         '.png'))
-            p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
-            (out, err) = p.communicate()
-    except:
-        pass
-        # return tmp.loc[0, 'status_date'], tmp.loc[0, 'status']
+    pdf_filename = f'{name}.pdf'
+    command = 'convert -verbose -density 500 "{}" -quality 100 "{}"'.format(pdf_filename, pdf_filename.replace('.pdf', '.png'))
+    p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
+    (out, err) = p.communicate()
 
 def gen_status_bar(assignment, current_date, filepath = 'progress_bar.png'):
     # def get_history_len(assignment, current_date):
@@ -163,7 +144,7 @@ def gen_status_bar(assignment, current_date, filepath = 'progress_bar.png'):
     }
 
 # init_notebook_mode(connected=True)
-def get_lawer_assignment_info(responsible_name, transaction_name, filepath = '/Users/smerdov/Downloads/plot_image.jpeg'):
+def get_lawer_assignment_info(responsible_name, transaction_name, filepath = 'plot_image.jpeg'):
     if os.path.exists(filepath):
         os.remove(filepath)
     mean_lawer_price = int(df_lawer_price.loc[responsible_name, 'Hour Price'])
@@ -231,5 +212,3 @@ if __name__ == '__main__':
     lawer_assignment_info = get_lawer_assignment_info(responsible_name, transaction_name)
 
     catboost_prediction = get_catboost_predict(assignment_id, '2017-01-01')
-
-
