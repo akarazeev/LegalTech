@@ -48,8 +48,20 @@
             <div class="col-md-4" style="border-right: 1px solid #000; height: 100vh; position: sticky; border-color: #e2e2e2; ">
                 <div class="container" style="margin-top: 50px;">
                     <div class="row">
-                        <textarea wrap="off" class="col-md-2" rows="1" cols="20" name="query" placeholder="Case number" style="resize: none; font-size: 18px; height: 42px;">{{ query }}</textarea>
-                        <input class="col-md-1" type="submit" value="Search" style="width: 7em;  height: 3em; background: #53aff6; border-radius: 0; color: #fff">
+
+                        <div class="col-md-2">
+                        {% if cases %}
+                            Cases:
+                            <select name="select_cases" style="width:200px;">
+                                {% for case in cases %}
+                                    <option value="{{ case }}" >{{ case }}</option>
+                                {% endfor %}
+                            </select>
+                        {% endif %}
+                        </div>
+                        <br><br><br>
+                        <!--<textarea wrap="off" class="col-md-2" rows="1" cols="20" name="query" placeholder="Case number" style="resize: none; font-size: 18px; height: 42px;">{{ query }}</textarea>-->
+                        <input class="col-md-4" type="submit" value="Search" style="width: 7em;  height: 3em; background: #53aff6; border-radius: 0; color: #fff">
                     </div>
                 </div>
                 <div class="select" style="margin-left: 18px"><p>Select View:</p></div>
@@ -60,20 +72,6 @@
                         <li><a class="link" href="#" style="border: 1px solid;">For print</a></li>
                     </ul>
                 </div>
-                <!--<div class="col-md-8">-->
-                    <!--<div class="rec" style="margin-top: 50px" ><p class="p_rec" style="font-size: 21px; color: #4C4C4C; letter-spacing: 1.5px;">Recently viewed:</p></div>-->
-                    <!--<nav id="navbar">-->
-                        <!--<ul id="main-menu">-->
-                            <!--<li><a href="#" target="_blank"><i class="fa fa-home"></i>Case 1</a></li>-->
-                            <!--<li><a href="#" target="_blank"><i class="fa fa-list-alt"></i>Case 2</a></li>-->
-                            <!--<li id="dropdown-item"><a href="#"><i class="fa fa-coffee"></i>Case 4</a></li>-->
-                            <!--<li><a href="#" target="_blank"><i class="fa fa-quote-left"></i>Case 5</a></li>-->
-                            <!--<li><a href="#" target="_blank"><i class="fa fa-user"></i>Case 3</a></li>-->
-                            <!--<li><a href="#" target="_blank"><i class="fa fa-user"></i>Case 9</a></li>-->
-                            <!--<li><a href="#" target="_blank"><i class="fa fa-user"></i>Case 8</a></li>-->
-                        <!--</ul>&lt;!&ndash; main-menu &ndash;&gt;-->
-                    <!--</nav>&lt;!&ndash; navbar &ndash;&gt;-->
-                <!--</div>-->
             </div>
 
             <div class="col-md-1"></div>
@@ -91,7 +89,7 @@
                     </div>
 
                     <div class="col-md-3">
-                        <div class="assigment">Author</div>
+                        <div class="assigment">Attorney</div>
                         <div class="data">{{ info['Author'] }}</div>
                     </div>
 

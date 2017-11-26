@@ -22,8 +22,6 @@
                 <div class="row">
                     <div class="col-md-1"><img class="logo" src="{{url_for('static', filename='img/avatar.jpg')}}" alt="logo"></div>
                     <div class="col-md-2"><h1 class="name">LegalEngine</h1></div>
-                    <div class="col-md-2"><div class="name_user"><a href="#" style="white-space: nowrap; margin-left: 563px; margin-top: 17px;">{{ username }}</a></div></div>
-                    <div class="col-md-2"><a class="sing" href="/login" style="white-space: nowrap; margin-left: 534px; margin-top: 17px;">Sign Out</a></div>
                 </div>
             </div>
         </header>
@@ -34,7 +32,7 @@
             <div class="col-md-6">
             <ul>
                 <li><a class="link" href="/" style="border: 1px solid">Home</a></li>
-                <li><a class="link" href="#" style="border: 1px solid">Search</a></li>
+                <li><a class="link" href="/" style="border: 1px solid">Search</a></li>
                 <li><a class="link" href="#" style="border: 1px solid">Profile</a></li>
             </ul>
             </div>
@@ -44,20 +42,8 @@
         <div class="col-md-3"></div>
         <div class="col-md-6">
             <div  class="cover">
-                {% if sent %}
-                <h2 class="contact">Successfully sent!</h2>
-                {% else %}
-                <h2 class="contact">Send a request</h2>
-                <form id="contactform">
-                    <input  class="sub" placeholder="Subject" required="" name="subject" tabindex="2" type="text">
-                    <input  class="sub" placeholder="Customer's email or telegram account" required="" name="address" tabindex="3" style="width: 300px;" value="thawetret@gmail.com">
-                    <br>
-                    <textarea class="area" tabindex="4" placeholder="Body" name="body" style="width: 500px; height: 200px"></textarea>
-                    <br>
-                    <input class="inp" tabindex="5" value="Send Message" type="submit">
-                </form>
+                <h2 class="contact">Request accepted!</h2>
             </div>
         </div>
-        {% endif %}
 <div class="col-md-3"></div>
             
