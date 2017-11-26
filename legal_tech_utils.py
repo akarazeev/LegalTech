@@ -11,11 +11,12 @@ matplotlib.use('Agg')
 import matplotlib.pyplot as plt
 import os
 import catboost as cb
+import subprocess
 
 # os.remove()
 
 cbr = cb.CatBoostRegressor()
-cbr.load_model('catbosot_model')
+cbr.load_model('catboost_model')
 average_len_dict = json.load(open('average_len_dict'))
 lawer_counts = pd.read_csv('lawer_counts.csv')
 df_lawer_assignment_price = pd.read_csv('df_lawer_assignment_price.csv').set_index(['Responsible', 'Assignment Type'])
@@ -55,7 +56,7 @@ def aggregator(rec):
         result = result + value + '; '
     return result[:-2]
 
-def get_timeline(assignment_id, current_date, folder=None):
+def get_timeline(assignment_id, current_date, name = 'timeline'):
     mask_1 = df['Assignment'] == assignment_id
     mask_2 = df['Entry Date'] <= current_date
     max_date = df.loc[mask_1, 'Entry Date'].max()
@@ -80,9 +81,9 @@ def get_timeline(assignment_id, current_date, folder=None):
         {'time': rec[1]['status_date'], 'text': rec[1]['status']} for rec in tmp.iterrows()
     ]
 
-    print(f'max_date is {max_date}, current_date is {current_date}')
+    # print(f'max_date is {max_date}, current_date is {current_date}')
     if current_date < max_date:
-        print('True')
+        # print('True')
         today_dict = {
             'time': datetime.strptime(current_date, DATE_FORMAT),
             'text': 'Today',
@@ -99,12 +100,19 @@ def get_timeline(assignment_id, current_date, folder=None):
     try:
         tl = TimelineTex(items, options=options)
         if folder is None:
-            tl.export(f'timeline.tex')
+            tl.export(f'{name}.tex')
             # tl.export(f'timeline_{assignment_id}.tex')
             # else:
             #     tl.export(f'{folder}/timeline_{assignment_id}.tex')
+            pdf_filename = f'{name}.pdf'
+            command = 'convert -verbose -density 500 "{}" -quality 100 "{}"'.format(pdf_filename,
+                                                                                    pdf_filename.replace('.pdf',
+                                                                                                         '.png'))
+            p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
+            (out, err) = p.communicate()
     except:
-        return tmp.loc[0, 'status_date'], tmp.loc[0, 'status']
+        pass
+        # return tmp.loc[0, 'status_date'], tmp.loc[0, 'status']
 
 def gen_status_bar(assignment, current_date, filepath = 'progress_bar.png'):
     # def get_history_len(assignment, current_date):
@@ -188,21 +196,39 @@ def get_lawer_assignment_info(responsible_name, assignment_name):
 
     return result
 
-get_timeline('1', '2008-08-30')
+def get_catboost_predict(assignment_id, current_date):
+    # assignment_id = '20080029'
+    mask_1 = df['Assignment'] == assignment_id
+    mask_2 = df['Entry Date'] <= current_date
+    mask = mask_1 & mask_2
+    small_df = df.loc[mask, ['Transaction']]
+    try:
+        max_index = df.index[mask].max()
+        max_date = df.loc[mask_1, 'Entry Date'].max()
+        paid_series = df.loc[mask, 'Paid']
+        paid_sum = paid_series.sum() - paid_series[max_index]
+        paid_count = len(paid_series) - 1
+        data_to_predict = [
+            df.loc[max_index, 'Transaction'],
+            df.loc[max_index, 'Transaction Type Englis'],
+            paid_sum,
+            paid_count
+        ]
+        # print(data_to_predict)
+        data_to_predict = cb.Pool([data_to_predict], cat_features=[0,1])
+        prediction = int(cbr.predict(data_to_predict)[0])
+    except:
+        prediction = 1000
+    return prediction
 
-gen_status_bar('12', '2008-10-23')
 
-responsible_name = 'Boris Keilaniemi'
-assignment_name = 'Rahoitusoikeus'
-lawer_assignment_info = get_lawer_assignment_info(responsible_name, assignment_name)
+if __name__ == '__main__':
+    get_timeline('1', '2008-08-30')
+    gen_status_bar('12', '2008-10-23')
+    responsible_name = 'Boris Keilaniemi'
+    assignment_name = 'Rahoitusoikeus'
+    lawer_assignment_info = get_lawer_assignment_info(responsible_name, assignment_name)
 
-
-
-
-
-
-
-
-
+    catboost_prediction = get_catboost_predict(assignment_id, '2017-01-01')
 
 
