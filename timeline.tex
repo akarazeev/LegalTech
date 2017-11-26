@@ -1,0 +1,122 @@
+\documentclass[border={20.000000bp 20.000000bp 20.000000bp 20.000000bp}, 11pt]{standalone}
+
+\usepackage{tikz}
+\usepackage{xcolor}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{backgrounds}
+
+\definecolor{dotColorA}{rgb}{0.121569,0.466667,0.705882}
+\definecolor{dotColorB}{rgb}{1.000000,0.498039,0.054902}
+
+\definecolor{labelBgColorA}{rgb}{0.121569,0.466667,0.705882}
+\definecolor{labelBgColorB}{rgb}{1.000000,0.498039,0.054902}
+
+\definecolor{labelTextColorA}{rgb}{1.000000,1.000000,1.000000}
+\definecolor{labelTextColorB}{rgb}{1.000000,1.000000,1.000000}
+
+\definecolor{linkColorA}{rgb}{0.121569,0.466667,0.705882}
+\definecolor{linkColorB}{rgb}{1.000000,0.498039,0.054902}
+
+\def\textA{Puhelinneuvottelu; Toimeksiantoon perehtyminen - 2008}
+\def\textB{Today - 2008}
+
+\begin{document}
+\begin{tikzpicture}[x=1bp,y=-1bp]
+
+% shift for the margin
+\begin{scope}[shift={(20, 20)}]
+% main layer
+\begin{scope}[shift={(0, 0)}]
+% axis
+\begin{scope}
+\draw[very thick] (0, 0) -- (760, 0);
+\end{scope}
+
+% axis layer
+\begin{scope}
+\begin{scope}[shift={(0, 0)}]
+\draw[thick] (0, -0) -- (0, 6pt)
+node[anchor=south] {Wed 27};
+\end{scope}
+\begin{scope}[shift={(63, 0)}]
+\draw[thick] (0, -0) -- (0, 6pt)
+node[anchor=south] {06 AM};
+\end{scope}
+\begin{scope}[shift={(126, 0)}]
+\draw[thick] (0, -0) -- (0, 6pt)
+node[anchor=south] {12 PM};
+\end{scope}
+\begin{scope}[shift={(190, 0)}]
+\draw[thick] (0, -0) -- (0, 6pt)
+node[anchor=south] {06 PM};
+\end{scope}
+\begin{scope}[shift={(253, 0)}]
+\draw[thick] (0, -0) -- (0, 6pt)
+node[anchor=south] {Thu 28};
+\end{scope}
+\begin{scope}[shift={(316, 0)}]
+\draw[thick] (0, -0) -- (0, 6pt)
+node[anchor=south] {06 AM};
+\end{scope}
+\begin{scope}[shift={(380, 0)}]
+\draw[thick] (0, -0) -- (0, 6pt)
+node[anchor=south] {12 PM};
+\end{scope}
+\begin{scope}[shift={(443, 0)}]
+\draw[thick] (0, -0) -- (0, 6pt)
+node[anchor=south] {06 PM};
+\end{scope}
+\begin{scope}[shift={(506, 0)}]
+\draw[thick] (0, -0) -- (0, 6pt)
+node[anchor=south] {Fri 29};
+\end{scope}
+\begin{scope}[shift={(570, 0)}]
+\draw[thick] (0, -0) -- (0, 6pt)
+node[anchor=south] {06 AM};
+\end{scope}
+\begin{scope}[shift={(633, 0)}]
+\draw[thick] (0, -0) -- (0, 6pt)
+node[anchor=south] {12 PM};
+\end{scope}
+\begin{scope}[shift={(696, 0)}]
+\draw[thick] (0, -0) -- (0, 6pt)
+node[anchor=south] {06 PM};
+\end{scope}
+\begin{scope}[shift={(760, 0)}]
+\draw[thick] (0, -0) -- (0, 6pt)
+node[anchor=south] {Sat 30};
+\end{scope}
+\end{scope}
+
+% link layer
+\begin{scope}
+\draw[color=linkColorA, very thick] (0.0, 0) .. controls
+(0.0, 20.0) and (137, 20.0) .. (137, 40.0);
+\draw[color=linkColorB, very thick] (760.0, 0) .. controls
+(760.0, 20.0) and (760, 20.0) .. (760, 40.0);
+\end{scope}
+
+% label layer
+\begin{scope}
+\begin{scope}[shift={(0, 40)}]
+\fill[color=labelBgColorA, rounded corners=2pt]
+(0, 0) rectangle (275, 13.60416) node[midway, yshift=-.75bp, anchor=center, text=labelTextColorA] {\strut \textA};
+\end{scope}
+\begin{scope}[shift={(726, 40)}]
+\fill[color=labelBgColorB, rounded corners=2pt]
+(0, 0) rectangle (67, 13.60416) node[midway, yshift=-.75bp, anchor=center, text=labelTextColorB] {\strut \textB};
+\end{scope}
+\end{scope}
+
+% dots
+\begin{scope}
+\draw node [circle, inner sep=0pt, minimum size=6bp, 
+fill=dotColorA] at (0.000000, 0) {};
+\draw node [circle, inner sep=0pt, minimum size=6bp, 
+fill=dotColorB] at (760.000000, 0) {};
+\end{scope}
+
+\end{scope}
+\end{scope}
+\end{tikzpicture}
+\end{document}
