@@ -113,6 +113,8 @@
                         Date: {{ transaction['Entry Date'] }}
                         <br>
                         Paid: {{ transaction.Paid }}
+                        <div><img  src="{{url_for('static', filename='img/pdflogo.png')}}"  style="width:50px; margin-left: 300px;"></div>
+                        
                     </div>
                     {% endfor %}
                 {% endif %}

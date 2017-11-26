@@ -48,14 +48,14 @@ def make_html(title, text, yes_url, modifications_url):
       <body>
           <table>
               <tr>
-                  <td align='center' colspan="2"><b style="font-size:20px">{}</b><br></td>
+                  <td align='center' colspan="4"><b style="font-size:20px">{}</b><br></td>
               </tr>
               <tr>
-                  <td align='center' colspan="2">{}</td>
+                  <td align='center' colspan="4">{}</td>
               </tr>
               <tr>
                   <td align='center' style="width:50px"><a href="{}">Yes</a></td>
-                  <td align='center' style="width:50px"><a href="{}">Modifications</a></td>
+                  <td align='center' style="width:50px"><a href="{}">I have a comment</a></td>
               </tr>
           </table>
       </body>
