@@ -24,6 +24,9 @@ df_assignment_price = pd.read_csv('df_assignment_price.csv').set_index(['Assignm
 from plotly.offline import download_plotlyjs, init_notebook_mode, plot, iplot
 import plotly
 import plotly.graph_objs
+import plotly.figure_factory as ff
+import plotly.plotly as py
+import plotly.graph_objs as go
 
 df = pd.read_csv('content.csv')
 DATE_FORMAT = '%Y-%m-%d'
@@ -88,43 +91,53 @@ def get_timeline(assignment_id, current_date, name = 'timeline'):
         }
         items.append(today_dict)
 
-    if len(items) == 1:
+    if len(items) <= 1:
         print('Only one sample')
-        return tmp.loc[0, 'status_date'], tmp.loc[0, 'status']
+        return None
+        # return tmp.loc[0, 'status_date'], tmp.loc[0, 'status']
 
 
     #     return items
 
     try:
         tl = TimelineTex(items, options=options)
-        if folder is None:
-            tl.export(f'{name}.tex')
-            # tl.export(f'timeline_{assignment_id}.tex')
-            # else:
-            #     tl.export(f'{folder}/timeline_{assignment_id}.tex')
-            pdf_filename = f'{name}.pdf'
-            command = 'convert -verbose -density 500 "{}" -quality 100 "{}"'.format(pdf_filename,
-                                                                                    pdf_filename.replace('.pdf',
-                                                                                                         '.png'))
-            p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
-            (out, err) = p.communicate()
+        tl.export(f'{name}.tex')
+        # tl.export(f'timeline_{assignment_id}.tex')
+        # else:
+        #     tl.export(f'{folder}/timeline_{assignment_id}.tex')
+        pdf_filename = f'{name}.pdf'
+        command = 'convert -verbose -density 500 "{}" -quality 100 "{}"'.format(pdf_filename,
+                                                                                pdf_filename.replace('.pdf',
+                                                                                                     '.png'))
+        p = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
+        (out, err) = p.communicate()
     except:
         pass
-        # return tmp.loc[0, 'status_date'], tmp.loc[0, 'status']
+    #     # return tmp.loc[0, 'status_date'], tmp.loc[0, 'status']
+
+# assignment = '20080006'
+# current_date = '2009-01-01'
+#
+assignment = '20080006'
+current_date = '2009-01-20'
 
 def gen_status_bar(assignment, current_date, filepath = 'progress_bar.png'):
-    # def get_history_len(assignment, current_date):
     is_ended = False
     mask_assignment = (df['Assignment'] == assignment)
     #     print(current_date)
     #     is_ended, n_days = get_history_len('1', current_date)
-    #     try:
-    mask = mask_assignment & (df.loc[mask_assignment, 'Entry Date'] < current_date)
-    max_index = df.index[mask].max()
+    # try:
+    date_col = 'Entry Date'
+    mask = mask_assignment & (df.loc[mask_assignment, date_col] <= current_date)
+    # print(df.loc[mask, date_col], df.loc[mask, date_col].isnull().sum())
+    mask_index = df.loc[mask, date_col] == df.loc[mask, date_col].max()
+    max_index = df.loc[pd.Index(mask_index.values),date_col].index[-1]
+    # df_tmp = df.loc[mask, date_col]
+    # max_index = df.index[mask].max() # It is old version
     transaction = df.loc[max_index, 'Transaction Type Englis']
-    min_date = df.loc[mask, 'Entry Date'].min()
+    min_date = df.loc[mask, date_col].min()
     min_date = datetime.strptime(min_date, DATE_FORMAT)
-    max_date = df.loc[mask_assignment, 'Entry Date'].max()
+    max_date = df.loc[mask_assignment, date_col].max()
     max_date = datetime.strptime(max_date, DATE_FORMAT)
     current_date = datetime.strptime(current_date, DATE_FORMAT)
     is_ended = current_date > max_date
@@ -133,9 +146,9 @@ def gen_status_bar(assignment, current_date, filepath = 'progress_bar.png'):
     if is_ended:
         percent = 100
     else:
-        percent = int(100 * average_len_dict[transaction] / (average_len_dict[transaction] + n_days))
+        percent = int(100 * float(n_days) / (average_len_dict[transaction] + n_days))
     # except:
-    #         percent = 0
+    #     percent = 0
 
     plt.figure(figsize=(10, 1))
     plt.barh(0.05, 100, height=0.1, color='#95bef4')
@@ -167,13 +180,13 @@ def get_lawer_assignment_info(responsible_name, transaction_name, filepath = '/U
     if os.path.exists(filepath):
         os.remove(filepath)
     mean_lawer_price = int(df_lawer_price.loc[responsible_name, 'Hour Price'])
-    mean_assignment_price = int(df_assignment_price.loc[transaction_name, 'Hour Price'])
-    mean_lawer_assignment_price = int(df_lawer_assignment_price.loc[(responsible_name, transaction_name), 'Hour Price'])
+    mean_transaction_price = int(df_assignment_price.loc[transaction_name, 'Hour Price'])
+    mean_lawer_transaction_price = int(df_lawer_assignment_price.loc[(responsible_name, transaction_name), 'Hour Price'])
 
     result = {
         'mean_lawer_price': mean_lawer_price,
-        'mean_assignment_price': mean_assignment_price,
-        'mean_lawer_assignment_price': mean_lawer_assignment_price,
+        'mean_transaction_price': mean_transaction_price,
+        'mean_lawer_transaction_price': mean_lawer_transaction_price,
     }
 
     mask_lawer = lawer_counts['Responsible'] == responsible_name
@@ -183,13 +196,15 @@ def get_lawer_assignment_info(responsible_name, transaction_name, filepath = '/U
     #     filename = f'/Users/smerdov/Junction2017/{responsible_name}.html'
     #     filename = '/Users/smerdov/Junction2017/Piechart.html'
 
-
+    # plt.pie(hour_prices, labels=assignment_types)
+    # plt.savefig('piechart')
     fig = plotly.offline.plot(
         {
             "data": [
                 plotly.graph_objs.Pie(labels=assignment_types, values=hour_prices)
             ]
         },
+        auto_open=False,
         #         filename = filename,
         image='jpeg',
     )
@@ -199,7 +214,6 @@ def get_lawer_assignment_info(responsible_name, transaction_name, filepath = '/U
     return result
 
 def get_catboost_predict(assignment_id, current_date):
-    # assignment_id = '20080029'
     mask_1 = df['Assignment'] == assignment_id
     mask_2 = df['Entry Date'] <= current_date
     mask = mask_1 & mask_2
@@ -223,13 +237,80 @@ def get_catboost_predict(assignment_id, current_date):
         prediction = 1000
     return prediction
 
+def plot_spents(assignment_id, current_date, filepath = '/Users/smerdov/Downloads/piechart_paid.png'):
+    mask = (df['Assignment'] == assignment_id) & (df['Entry Date'] <= current_date)
+    df_aggregated = df.loc[mask, ['Transaction Type','Paid']].groupby(['Transaction Type']).agg(
+        {
+            'Paid': np.sum
+        }
+    )
+
+    mask_good = df_aggregated['Paid'] > 0
+    if mask_good.sum(): # TODO if data is not enought?
+        os.remove(filepath)
+
+        df_aggregated = df_aggregated.loc[mask_good, :]
+
+        transactions = df_aggregated.index.values
+        paids = df_aggregated['Paid'].values
+
+        fig = plotly.offline.plot(
+            {
+                "data": [
+                    plotly.graph_objs.Pie(labels=transactions, values=paids)
+                ]
+            },
+            auto_open=True,
+            # filename = filename,
+            image='png',
+            image_filename = 'piechart_paid'
+        )
+
+# transaction_type = 'Writing a complaint'
+def plot_hours_distribution(transaction_type, filepath = '/Users/smerdov/Downloads/distplot_hours.png'):
+    mask = ((df['Transaction Type'] == transaction_type) | (df['Transaction Type Englis'] == transaction_type)) &\
+           (df['Hours Worked'] < 50) & (df['Billable Hours'] < 50) & (df['Hours Worked'] > 0) & (df['Billable Hours'] > 0)
+    hours_worked_values = df.loc[mask, 'Hours Worked'].values
+    hours_billed_values = df.loc[mask, 'Billable Hours'].values
+    SIZE = 3
+    data = [
+        go.Histogram(x=hours_worked_values, histnorm='probability', opacity=0.5, xbins=dict(
+        start=0,
+        end=30,
+        size=SIZE
+    )),
+    #     go.Histogram(x=hours_billed_values, histnorm='probability', opacity=0.5, xbins=dict(
+    #     start=0,
+    #     end=25,
+    #     size=SIZE
+    # )),
+    ]
+    layout = go.Layout(barmode='overlay')
+    fig = go.Figure(data=data, layout=layout)
+    fig = plotly.offline.plot(
+        fig,
+        auto_open=True,
+        # filename = filename,
+        image='png',
+        image_filename='distplot_hours',
+        # validate=False
+    )
+
+
 if __name__ == '__main__':
-    get_timeline('1', '2008-08-30')
-    gen_status_bar('12', '2008-10-23')
+
+    # gen_status_bar('20080007', '2008-10-05')
+
+
+    get_timeline('20120036', '2007-05-15')
     responsible_name = 'Boris Keilaniemi'
     transaction_name = 'Rahoitusoikeus'
     lawer_assignment_info = get_lawer_assignment_info(responsible_name, transaction_name)
-
-    catboost_prediction = get_catboost_predict(assignment_id, '2017-01-01')
-
-
+    #
+    # assignment_id = '20120036'
+    # catboost_prediction = get_catboost_predict(assignment_id, '2017-01-01')
+    #
+    # # catboost_prediction
+    #
+    # plot_spents('12', '2017-01-01')
+    # plot_hours_distribution('Court appearance')
